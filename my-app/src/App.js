@@ -1,7 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+import { db } from './firebase';
+import { collection, getDocs } from "firebase/firestore";
+
+async function App() {
+
+  const querySnapshot = await getDocs(collection(db, "MenuData"));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+      console.log(`${doc.data().name} , ${doc.data().price}원, ${doc.data().type}, ${doc.data().cafeteria.name}`);
+    });
+
   return (
     <div className="App">
       <header className="App-header">
