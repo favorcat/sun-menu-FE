@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 24px;
+  padding-bottom: 48px;
+}
+
+.container-title {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  width: 50%;
+  padding: 20px 18px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+
+.cafe-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 18px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.cafe-container > img {
+  border-radius: 16px;
+}
+
+.cafe-container > a {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-align: left;
+}
+
+.cafe-info{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.cafe-title{
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.cafe-operating{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cafe-open{
+  padding: 0 8px;
+  color: black;
+  background: #ffbbcc;
+  border-radius: 12px;
+}
+.cafe-close{
+  padding: 0 8px;
+  color: black;
+  background: #c9c9c9;
+  border-radius: 12px;
+
+}
