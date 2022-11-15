@@ -1,0 +1,149 @@
+/* 가게 정보 */
+.cafeteria-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cafeteria-title{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.cafeteria-info{
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  gap: 12px;
+  padding: 0 24px;
+}
+.cafeteria-sub, .cafeteria-content{
+  display: flex;
+  flex-direction: column;
+  line-height: 24px;
+  gap: 4px;
+  text-align: left;
+}
+
+.cafeteria-open{
+  font-weight: 700;
+  width: 128px;
+  padding: 4px 0px;
+  margin-bottom: 24px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  
+  color:white;
+  background: #ffbbcc;
+}
+
+.cafeteria-close{
+  font-weight: 700;
+  width: 128px;
+  padding: 4px 0px;
+  margin-bottom: 24px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  
+  color:black;
+  background: #c9c9c9;
+}
+
+
+/* 가게 메뉴 타입 버튼 */
+.btn-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.type-btn{
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+
+  gap: 4px;
+  padding: 6px 16px;
+  text-decoration: none;
+  color: black;
+  
+  border-radius: 100px;
+}
+
+.day-btn-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.day-btn{
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 19px;
+
+  padding: 6px 14px;
+  text-decoration: none;
+  color: black;
+  background: lightblue;
+  
+  border-radius: 100px;
+}
+
+#type-한식{
+  background: #FFBBCC;
+}
+#type-분식{
+  background: #FFEECC;
+}
+#type-일식{
+  background: #FFDDCC;
+}
+/* 가게 메뉴 */
+.menu-list{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.menu-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 18px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
+.menu-info{
+  width: 95%;
+  display: flex;
+  justify-content: space-between;
+
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 29px;
+  letter-spacing: -0.01em;
+
+  color: #000000;
+}
+
+.menu-tag{
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menu-tag > a{
+  font-size: 14px;
+  line-height: 19px;
+  padding: 6px 10px;
+}
