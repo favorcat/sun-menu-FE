@@ -176,7 +176,7 @@ function MainPage() {
       })}
     </div>
     <div className='list' id="메뉴">
-      <span>메뉴로 고르기</span>
+      <span className='container-title'>메뉴</span>
       <div className='type-container'>
         {NewMenuList.map((item) => {
           return (
@@ -190,7 +190,7 @@ function MainPage() {
     </div>
 
     <div className='list' id="교내">
-      <span>교내 식당</span>
+    <span className='container-title'>교내 식당</span>
         {CafeInfoList.map((item) => {
         return (
           <Link to={'/cafe/' + item.eng_name} className='cafe-container'>
