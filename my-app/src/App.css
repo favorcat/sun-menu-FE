@@ -35,6 +35,17 @@ a, div {
   padding: 0 20px;
 }
 
+.login, .logout{
+  font-size: 14px !important;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 24px;
+  background: #ffeecc;
+  line-height: 18px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+
 .search-container{
   display: flex;
   flex-direction: row;
