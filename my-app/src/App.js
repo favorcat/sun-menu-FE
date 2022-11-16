@@ -75,6 +75,7 @@ function App() {
           <Route path="/signup" element={<SignupPage/>} />
           <Route path="/:id" element={<TypePage/>} />
           <Route path="/cafe/:id" element={<CafePage/>}/>
+          <Route path="/cafe/:id/:key" element={<MenuDetailPage/>}/>
         </Routes>
       </Router>
     </div>

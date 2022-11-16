@@ -3,7 +3,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import './cafeteriaDetail.css';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase';
 import { query, collection, getDocs, where } from "firebase/firestore";
@@ -175,7 +175,7 @@ function CafeteriaDetailPage() {
         <div className='list'>
         {menuList.map((item, i) => {
           return (
-                <div className='menu-container' id={ item.type } key={i}>
+                <Link to={'/cafe/'+ id + '/' + item.name} className='menu-container' id={ item.type } key={i}>
                   <div className='menu-info'>
                     <span> { item.name } </span>
                     <span> { item.price }원 </span>
@@ -185,7 +185,7 @@ function CafeteriaDetailPage() {
                     <span>JMT</span>
                     <span>별점</span>
                   </div>
-                </div>
+                </Link>
             )
         })}
         </div>
