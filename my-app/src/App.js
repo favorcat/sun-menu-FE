@@ -9,8 +9,9 @@ import LoginPage from './pages/login/login';
 import SignupPage from './pages/register/register';
 import MainPage from './pages/main/mainPage';
 
-import TypePage from './pages/menu/typeDetail';
+import TypePage from './pages/type/typeDetail';
 import CafePage from './pages/cafeteria/cafeteriaDetail';
+import MenuDetailPage from './pages/cafeteria/menuDetail';
 
 function App() {
   // const location = useLocation()

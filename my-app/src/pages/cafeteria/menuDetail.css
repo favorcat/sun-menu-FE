@@ -1,0 +1,57 @@
+.menuDetail, .review-form-container{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 20px 18px;
+  border-radius: 14px;
+  box-sizing: border-box;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+.menuDetail > .cafeteria-title{
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+.menu-title{
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.menu-price{
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+}
+
+.menu-type{
+  padding: 0 98px;
+}
+
+.review-container{
+  margin-top: 24px;
+}
+
+.review-form-container{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 10% 15%;
+}
+.form-title{
+  padding-bottom: 12px;
+}
+
+.submit-review{
+  font-weight: 500;
+  padding: 8px 0;
+  margin: 0 20px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 24px;
+  font-size: 14px;
+  color: #000000;
+  background: #ffbbcc;
+}
