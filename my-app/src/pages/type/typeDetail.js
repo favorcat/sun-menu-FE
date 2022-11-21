@@ -40,8 +40,6 @@ function isOpen(dayStr, timeStr){
 
 function MenuTypeDetailPage() {
   const { id } = useParams();
-  console.log(id);
-
   const [CafeInfoList, setCafeInfoList] = useState([]);
 
   useEffect(()=>{

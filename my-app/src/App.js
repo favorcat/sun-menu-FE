@@ -21,7 +21,7 @@ function App() {
   // React.useEffect(() => { // useEffect가 location이 바뀔 때마다 실행됨
   //   if (cookie.token) { // 만약 토큰이 존재하면
   //     // 토큰 검증을 함
-  //     axios.get('http://localhostㄹ:8000/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
+  //     axios.get('http://localhost:8000/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
   //       .then((res) => {
   //         // 요청 성공 시 그냥 지나감
   //         console.log(res.data);
@@ -76,7 +76,7 @@ function App() {
           <Route path="/register" element={<SignupPage/>} />
           <Route path="/:id" element={<TypePage/>} />
           <Route path="/cafe/:id" element={<CafePage/>}/>
-          <Route path="/cafe/:id/:key" element={<MenuDetailPage/>}/>
+          <Route path="/cafe/:id/:key" element={<MenuDetailPage token={cookie.token}/>}/>
         </Routes>
       </Router>
     </div>

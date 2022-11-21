@@ -6,40 +6,49 @@ import './menuDetail.css';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { db } from '../../firebase';
-import { query, collection, getDocs, where } from "firebase/firestore";
+// import { db } from '../../firebase';
+// import { query, collection, getDocs, where } from "firebase/firestore";
 import { ResponsiveRadar } from '@nivo/radar'
 import { Range } from 'react-range';
 import axios from 'axios';
   
-  function MenuDetailPage() {
+  function MenuDetailPage(token) {
+    token = token.token;
     const { id, key } = useParams();
-    console.log("menu page id = " + id + key);
     
     const [menuInfo, setMenuInfo] = useState({});
     const [cafeInfo, setCafeInfo] = useState([]);
     useEffect(()=>{
       const fetchMenu = async ( ) => {
-        const cafeQuery = query(
-          collection(db, "CafeteriaData"),
-          where('eng_name', '==', id)
-        );
-      const cafeSnapshot = await getDocs(cafeQuery);
-      cafeSnapshot.forEach((doc) => {
-        const { name } = doc.data();
-        setCafeInfo({name: name});
-      });
+      //   const cafeQuery = query(
+      //     collection(db, "CafeteriaData"),
+      //     where('eng_name', '==', id)
+      //   );
+      // const cafeSnapshot = await getDocs(cafeQuery);
+      // cafeSnapshot.forEach((doc) => {
+      //   const { name } = doc.data();
+      //   setCafeInfo({name: name});
+      // });
       
-      const q = query(
-        collection(db, "MenuData"),
-        where("cafeteria", "==", id),
-        where("name", "==", key)
-        );
-        const querySnapshot = await getDocs(q);
+      // const q = query(
+      //   collection(db, "MenuData"),
+      //   where("cafeteria", "==", id),
+      //   where("name", "==", key)
+      //   );
+      //   const querySnapshot = await getDocs(q);
         
-        querySnapshot.forEach((doc) => {
-          const { name, price, type } = doc.data();
-          setMenuInfo({name: name, price: price, type: type});
+      //   querySnapshot.forEach((doc) => {
+      //     const { name, price, type } = doc.data();
+      //     setMenuInfo({name: name, price: price, type: type});
+      //   });
+        axios.get(`http://localhost:8000/check/menu/${id}/${key}`)
+        .then(function (response){
+          const { menu_name, price, type } = response.data;
+          setMenuInfo({name: menu_name, price: price, type: type});
+        });
+        axios.get(`http://localhost:8000/check/cafe/${id}`)
+        .then(function (response){
+          setCafeInfo({name: response.data.kor_name});
         });
       }
       fetchMenu();
@@ -85,11 +94,8 @@ import axios from 'axios';
   ];
   
   function getReview(){
-    console.log("get reviewwww");
     axios.get(`http://localhost:8000/check/create/${id}/${key}`)
     .then(function (response) {
-      console.log(typeof(response.data.avg_cost));
-      console.log(response.data);
       setData([
         {
           "review": "맛",
@@ -112,31 +118,30 @@ import axios from 'axios';
           "": response.data.avg_quality,
         }
       ]);
-      console.log(data);
     }).catch(function (error) {
         console.log(error);
     });
   }
   function postReview(){
-    console.log("submit");
-    axios.post('http://localhost:8000/check/create/',
-    {
-      'user': 1,
-      'menu_name': key,
-      'cafeteria_name': id,
-      'cost': review.cost[0],
-      'taste': review.taste[0],
-      'quantity': review.quantity[0],
-      'clean': review.clean[0],
-      'quality': review.quality[0],
-    }).then(function (response) {
-      console.log("리뷰 보내기 성공!");
-      console.log(response.data);
-      getReview();
-      }).catch(function (error) {
-        console.log(error);
-      }
-    );
+    if (token != null || token != undefined){
+      axios.post('http://localhost:8000/check/create/',
+      {
+        'user': 1,
+        'menu_name': key,
+        'cafeteria_name': id,
+        'cost': review.cost[0],
+        'taste': review.taste[0],
+        'quantity': review.quantity[0],
+        'clean': review.clean[0],
+        'quality': review.quality[0],
+      }).then(function (response) {
+        window.alert("리뷰가 등록되었습니다.");
+        getReview();
+        }).catch(function (error) {
+          console.log(error);
+        }
+      );
+    } else { window.alert("로그인 후 이용해주세요."); }
   }
 
   return (
