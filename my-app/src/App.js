@@ -41,7 +41,7 @@ function App() {
   }
 
   const onClick=() => {
-    alert("헬로");
+    alert("기능 준비중입니다.");
   }
   const onKeyPress = (e) => {
     if(e.key === 'Enter') {
