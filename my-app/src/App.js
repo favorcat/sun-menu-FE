@@ -4,6 +4,8 @@ import { useCookies } from 'react-cookie';
 
 import React from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 import LoginPage from './pages/login/login';
 import SignupPage from './pages/register/register';
@@ -46,6 +48,9 @@ function App() {
       onClick();
     }
   }
+  function scrollToTop() {
+    window.scrollTo(0, 0);
+  }
   return (
     <div className='App'>
       <div className='header'>
@@ -79,6 +84,9 @@ function App() {
           <Route path="/cafe/:id/:key" element={<MenuDetailPage token={cookie.token}/>}/>
         </Routes>
       </Router>
+      <div className="top-button" onClick={scrollToTop}>
+        <FontAwesomeIcon icon={faCaretUp} className="top-button-icon" />
+      </div>
     </div>
   );
 }
