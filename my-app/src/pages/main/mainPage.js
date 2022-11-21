@@ -47,12 +47,12 @@ function isOpen(dayStr, timeStr){
 function MainPage() {
   const remote = ["메뉴", "교내", "기숙사"];
   const NewMenuList = [
-    { name: '한식', url: 'korean', image: 'https://picsum.photos/200' },
-    { name: '분식', url: 'snack', image: 'https://picsum.photos/200' },
+    { name: '한식', url: 'korean' },
+    { name: '분식', url: 'snack' },
     // { name: '양식', url: 'weatern', image: 'https://picsum.photos/200' },
     // { name: '중식', url: 'chinese', image: 'https://picsum.photos/200' },
-    { name: '일식', url: 'japansese', image: 'https://picsum.photos/200' },
-    { name: '패스트푸드', url: 'fastfood', image: 'https://picsum.photos/200' }
+    { name: '일식', url: 'japansese' },
+    { name: '패스트푸드', url: 'fastfood' }
   ]
 
   // const storage = getStorage();
@@ -190,7 +190,7 @@ function MainPage() {
         {NewMenuList.map((item) => {
           return (
               <Link to={'/'+item.name} className='type'>
-                <img width="80px" src={item.image} alt={item.name} />
+                <img width="80px" src={'/resource/type/'+item.url+'.png'} alt={item.name} />
                 <span> { `${item.name} (${capitalizeFirstLetter(item.url)})` } </span>
               </Link>
           )
@@ -205,12 +205,12 @@ function MainPage() {
           <Link to={'/cafe/' + item.eng_name} className='cafe-container'>
             <img width="80px" src={'/resource/cafe/'+item.eng_name+'.png'} alt={item.kor_name} />
             <div className='cafe-info'>
-              <div className='cafe-title'> {item.kor_name} </div>
-              <span> {item.location} </span>
-              <div className='cafe-operating'>
-                <span> {item.operating_day} {item.operating_time}</span>
+              <div className='cafe-title'>
+                {item.kor_name}
                 { item.open === true ? <span className='cafe-open'> 영업중 </span> : <span className='cafe-close'> 영업종료 </span> }
               </div>
+              <span> {item.location} </span>
+              <div className='cafe-operating'> {item.operating_day} {item.operating_time} </div>
               <span> Tel. {item.phone} </span>
               
             </div>

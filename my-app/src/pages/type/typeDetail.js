@@ -86,14 +86,14 @@ function MenuTypeDetailPage() {
       {CafeInfoList.map((item) => {
         return (
           <Link to={'/cafe/' + item.eng_name} className='cafe-container'>
-            <img width="80px" src='https://picsum.photos/200' alt={item.name} />
+            <img width="80px" src={'/resource/cafe/'+item.eng_name+'.png'} alt={item.name} />
             <div className='cafe-info'>
-              <div className='cafe-title'> {item.name} </div>
-              <span> {item.location} </span>
-              <div className='cafe-operating'>
-                <span> {item.operating_day} {item.operating_hour}</span>
+              <div className='cafe-title'>
+                {item.name}
                 { item.open === true ? <span className='cafe-open'> 영업중 </span> : <span className='cafe-close'> 영업종료 </span> }
               </div>
+              <span> {item.location} </span>
+              <div className='cafe-operating'> {item.operating_day} {item.operating_hour} </div>
               <span> Tel. {item.phone} </span>
               
             </div>
