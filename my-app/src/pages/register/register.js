@@ -6,7 +6,7 @@ import './register.css';
 
 // function edit(){
 //   console.log("submit");
-//   axios.put('http://localhost:8000/api/get_post/1',{
+//   axios.put('https://api.favorcat.dev/api/get_post/1',{
 //       title: "aaaaa",
 //       contents: "bbbbbb",
 //       writer: "2",
@@ -25,7 +25,7 @@ function register(usr, email, pw1, pw2){
     if (pw1.length < 8){
       window.alert("비밀번호는 8자 이상이어야 합니다.");
     } else{
-      axios.post('http://localhost:8000/rest-auth/registration/',{
+      axios.post('https://api.favorcat.dev/rest-auth/registration/',{
         username: usr,
         email: email,
         password1: pw1,

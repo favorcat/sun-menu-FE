@@ -71,7 +71,7 @@ function MainPage() {
       //   const open = isOpen(operating_day, operating_time);
       //   infoArr.push({eng_name, name, location, operating_day, operating_time, phone, open});
       // });
-      axios.get(`http://localhost:8000/check/cafe/`)
+      axios.get(`https://api.favorcat.dev/check/cafe/`)
       .then(function (response){
         const data = response.data;
         for(var i=0; i<data.length; i++){

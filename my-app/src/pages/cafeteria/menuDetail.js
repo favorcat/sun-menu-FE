@@ -41,12 +41,12 @@ import axios from 'axios';
       //     const { name, price, type } = doc.data();
       //     setMenuInfo({name: name, price: price, type: type});
       //   });
-        axios.get(`http://localhost:8000/check/menu/${id}/${key}`)
+        axios.get(`https://api.favorcat.dev/check/menu/${id}/${key}`)
         .then(function (response){
           const { menu_name, price, type } = response.data;
           setMenuInfo({name: menu_name, price: price, type: type});
         });
-        axios.get(`http://localhost:8000/check/cafe/${id}`)
+        axios.get(`https://api.favorcat.dev/check/cafe/${id}`)
         .then(function (response){
           setCafeInfo({name: response.data.kor_name});
         });
@@ -94,7 +94,7 @@ import axios from 'axios';
   ];
   
   function getReview(){
-    axios.get(`http://localhost:8000/check/create/${id}/${key}`)
+    axios.get(`https://api.favorcat.dev/check/create/${id}/${key}`)
     .then(function (response) {
       setData([
         {
@@ -124,7 +124,7 @@ import axios from 'axios';
   }
   function postReview(){
     if (token != null || token != undefined){
-      axios.post('http://localhost:8000/check/create/',
+      axios.post('https://api.favorcat.dev/check/create/',
       {
         'user': 1,
         'menu_name': key,

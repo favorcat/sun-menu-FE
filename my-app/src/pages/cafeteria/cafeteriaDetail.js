@@ -54,7 +54,7 @@ function CafeteriaDetailPage() {
 
       //   setCafeInfo({name: name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_hour: operating_hour});
         
-        axios.get(`http://localhost:8000/check/cafe/${id}`)
+        axios.get(`https://api.favorcat.dev/check/cafe/${id}`)
         .then(function (response){
           const { kor_name, eng_name, lat, lng, location, phone, operating_day, operating_time, notice_contents, notice_registered } = response.data;
           setCafeInfo({name: kor_name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_time: operating_time, notice_contents: notice_contents, notice_registered: notice_registered});
@@ -83,7 +83,7 @@ function CafeteriaDetailPage() {
         setMenuList(menuArr.sort((a, b) => a.idx.localeCompare(b.idx)));
       }
       else {
-        axios.get(`http://localhost:8000/check/menu/${id}`)
+        axios.get(`https://api.favorcat.dev/check/menu/${id}`)
         .then(function (response){
           for(var i=0; i<response.data.length; i++){
             const { menu_name, price, type } = response.data[i];
@@ -116,7 +116,7 @@ function CafeteriaDetailPage() {
         // } else { setCafeOpen(false);
         //   console.log("닫힘"); }
           
-        // axios.get(`http://localhost:8000/check/menu/${id}`)
+        // axios.get(`https://api.favorcat.dev/check/menu/${id}`)
         // .then(function (response){
         //   console.log(response.data);
         // });

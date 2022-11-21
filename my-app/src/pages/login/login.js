@@ -7,7 +7,7 @@ import './login.css';
 
 // function edit(){
 //   console.log("submit");
-//   axios.put('http://localhost:8000/api/get_post/1',{
+//   axios.put('https://api.favorcat.dev/api/get_post/1',{
 //       title: "aaaaa",
 //       contents: "bbbbbb",
 //       writer: "2",
@@ -30,7 +30,7 @@ function LoginPage() {
   const [cookies, setCookie] = useCookies(['token']);
 
   function login(usr, pw){
-    axios.post('http://localhost:8000/rest-auth/login/',{
+    axios.post('https://api.favorcat.dev/rest-auth/login/',{
       username: usr,
       password: pw,
     })

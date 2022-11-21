@@ -23,7 +23,7 @@ function App() {
   // React.useEffect(() => { // useEffect가 location이 바뀔 때마다 실행됨
   //   if (cookie.token) { // 만약 토큰이 존재하면
   //     // 토큰 검증을 함
-  //     axios.get('http://localhost:8000/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
+  //     axios.get('https://api.favorcat.dev/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
   //       .then((res) => {
   //         // 요청 성공 시 그냥 지나감
   //         console.log(res.data);
