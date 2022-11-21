@@ -4,6 +4,8 @@ import { useCookies } from 'react-cookie';
 
 import React from 'react';
 import axios from 'axios';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 
 import LoginPage from './pages/login/login';
 import SignupPage from './pages/register/register';
@@ -21,7 +23,7 @@ function App() {
   // React.useEffect(() => { // useEffect가 location이 바뀔 때마다 실행됨
   //   if (cookie.token) { // 만약 토큰이 존재하면
   //     // 토큰 검증을 함
-  //     axios.get('http://localhostㄹ:8000/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
+  //     axios.get('http://localhost:8000/api/verifytoken', { headers: { Authorization: `Bearer ${cookie.token}` } })
   //       .then((res) => {
   //         // 요청 성공 시 그냥 지나감
   //         console.log(res.data);
@@ -39,12 +41,15 @@ function App() {
   }
 
   const onClick=() => {
-    alert("헬로");
+    alert("기능 준비중입니다.");
   }
   const onKeyPress = (e) => {
     if(e.key === 'Enter') {
       onClick();
     }
+  }
+  function scrollToTop() {
+    window.scrollTo(0, 0);
   }
   return (
     <div className='App'>
@@ -76,9 +81,12 @@ function App() {
           <Route path="/register" element={<SignupPage/>} />
           <Route path="/:id" element={<TypePage/>} />
           <Route path="/cafe/:id" element={<CafePage/>}/>
-          <Route path="/cafe/:id/:key" element={<MenuDetailPage/>}/>
+          <Route path="/cafe/:id/:key" element={<MenuDetailPage token={cookie.token}/>}/>
         </Routes>
       </Router>
+      <div className="top-button" onClick={scrollToTop}>
+        <FontAwesomeIcon icon={faCaretUp} className="top-button-icon" />
+      </div>
     </div>
   );
 }

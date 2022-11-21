@@ -7,6 +7,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { db } from '../../firebase';
 import { query, collection, getDocs, where } from "firebase/firestore";
+import axios from 'axios';
 // import { Map, MapMarker,CustomOverlayMap } from "react-kakao-maps-sdk";
 
 
@@ -26,25 +27,15 @@ function isOpen(dayStr, timeStr){
     if ((dayStr ==='평일' && time.day >= 1 && time.day <= 5) || (dayStr ==='매일')){
       console.log("평일");
       if (start_hour <= time.hours && time.hours <= end_hour){
-        if (time.hours == start_hour && time.minutes < start_min){
-          console.log("시작시 이고 분 전이다");
-          return false;
-        }
-        else if (time.hours == end_hour && time.minutes > end_min){
-          console.log("종료시 이고 분 후이다");
-          return false;
-        }
-        else {
-          console.log("영업중이다.")
-          return true;
-        }
+        if (time.hours == start_hour && time.minutes < start_min){ return false; }
+        else if (time.hours == end_hour && time.minutes > end_min){ return false; }
+        else { return true; }
       } else { return false; }
-  } else { console.log("아님"); return false; }
+  } else { return false; }
 }
 
 function CafeteriaDetailPage() {
   const { id } = useParams();
-  console.log("id = " + id);
 
   const [menuList, setMenuList] = useState([]);
   const [TypeList, setTypeList] = useState([]);
@@ -53,22 +44,26 @@ function CafeteriaDetailPage() {
 
   useEffect(()=>{
     const fetchMenu = async ( ) => {
-      const cafeQuery = query(
-        collection(db, "CafeteriaData"),
-        where('eng_name', '==', id)
-      );
-      const cafeSnapshot = await getDocs(cafeQuery);
-      cafeSnapshot.forEach((doc) => {
-        const { name, eng_name, lat, lng, location, phone, operating_day, operating_hour } = doc.data();
+      // const cafeQuery = query(
+      //   collection(db, "CafeteriaData"),
+      //   where('eng_name', '==', id)
+      // );
+      // const cafeSnapshot = await getDocs(cafeQuery);
+      // cafeSnapshot.forEach((doc) => {
+      //   const { name, eng_name, lat, lng, location, phone, operating_day, operating_hour } = doc.data();
 
-        setCafeInfo({name: name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_hour: operating_hour});
-
-        if (isOpen(operating_day, operating_hour) === true){
-          setCafeOpen(true);
-          console.log("열림");
-        } else { setCafeOpen(false);
-          console.log("닫힘"); }
-      });
+      //   setCafeInfo({name: name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_hour: operating_hour});
+        
+        axios.get(`http://localhost:8000/check/cafe/${id}`)
+        .then(function (response){
+          const { kor_name, eng_name, lat, lng, location, phone, operating_day, operating_time, notice_contents, notice_registered } = response.data;
+          setCafeInfo({name: kor_name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_time: operating_time, notice_contents: notice_contents, notice_registered: notice_registered});
+          if (isOpen(operating_day, operating_time) === true){
+            setCafeOpen(true);
+            console.log("열림");
+          } else { setCafeOpen(false); }
+        });
+      // });
       
 
       var menuArr = [];
@@ -88,26 +83,47 @@ function CafeteriaDetailPage() {
         setMenuList(menuArr.sort((a, b) => a.idx.localeCompare(b.idx)));
       }
       else {
-        const q = query(
-          collection(db, "MenuData"),
-          where("cafeteria", "==", id)
-        );
-        const querySnapshot = await getDocs(q);
-
-        querySnapshot.forEach((doc) => {
-          const { name, price, type } = doc.data();
-    
-          menuArr.push({name: name, price: price, type: type});
-          if (typeArr.includes(type) === false){
-            typeArr.push(type);
+        axios.get(`http://localhost:8000/check/menu/${id}`)
+        .then(function (response){
+          for(var i=0; i<response.data.length; i++){
+            const { menu_name, price, type } = response.data[i];
+            menuArr.push({name: menu_name, price: price, type: type});
+            if (typeArr.includes(type) === false){
+              typeArr.push(type);
+            }
           }
+          setMenuList(menuArr.sort((a, b) => b.type.localeCompare(a.type)));
+          setTypeList(typeArr.sort((a, b) => b.localeCompare(a)));
         });
-    
-        setMenuList(menuArr.sort((a, b) => b.type.localeCompare(a.type)));
-        setTypeList(typeArr.sort((a, b) => b.localeCompare(a)));
-      }
-      console.log(menuList);
+        // const q = query(
+        //   collection(db, "MenuData"),
+        //   where("cafeteria", "==", id)
+        // );
+        // const querySnapshot = await getDocs(q);
 
+        // querySnapshot.forEach((doc) => {
+        //   const { name, price, type } = doc.data();
+    
+        //   menuArr.push({name: name, price: price, type: type});
+        //   if (typeArr.includes(type) === false){
+        //     typeArr.push(type);
+        //   }
+        // });
+        
+        // if (isOpen(operating_day, operating_hour) === true){
+        //   setCafeOpen(true);
+        //   console.log("열림");
+        // } else { setCafeOpen(false);
+        //   console.log("닫힘"); }
+          
+        // axios.get(`http://localhost:8000/check/menu/${id}`)
+        // .then(function (response){
+        //   console.log(response.data);
+        // });
+        
+        // setMenuList(menuArr.sort((a, b) => b.type.localeCompare(a.type)));
+        // setTypeList(typeArr.sort((a, b) => b.localeCompare(a)));
+      }
     }
     fetchMenu();
   },[]);
@@ -126,14 +142,14 @@ function CafeteriaDetailPage() {
           <span>위치</span>
         </div>
         <div className='cafeteria-content'>
-          <span>{cafeInfo.operating_day} {cafeInfo.operating_hour}</span>
+          <span>{cafeInfo.operating_day} {cafeInfo.operating_time}</span>
           <a href={'tel:'+cafeInfo.phone}>{cafeInfo.phone}</a>
           <span>{cafeInfo.location}</span>
         </div>
       </div>
       <>
       <br/>
-      <a>오늘은 쉽니다. . . 어쩌고저쩌고샬ㄹ만이ㅓㄹ asdfaslkdjf;alsdkzxnvzxcvjklsdfj;laksjdf;alsjd</a>
+      <a>{cafeInfo.notice_contents}</a>
       </>
     </div>
 

@@ -3,8 +3,9 @@
 import './mainPage.css';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { db } from '../../firebase';
-import { query, collection, getDocs } from "firebase/firestore";
+import axios from 'axios';
+// import { db } from '../../firebase';
+// import { query, collection, getDocs } from "firebase/firestore";
 // import KakaoMapScript from '../location/kakaoMap';
 // import { Map, MapMarker,CustomOverlayMap } from "react-kakao-maps-sdk";
 
@@ -46,12 +47,12 @@ function isOpen(dayStr, timeStr){
 function MainPage() {
   const remote = ["메뉴", "교내", "기숙사"];
   const NewMenuList = [
-    { name: '한식', url: 'korean', image: 'https://picsum.photos/200' },
-    { name: '분식', url: 'snack', image: 'https://picsum.photos/200' },
+    { name: '한식', url: 'korean' },
+    { name: '분식', url: 'snack' },
     // { name: '양식', url: 'weatern', image: 'https://picsum.photos/200' },
     // { name: '중식', url: 'chinese', image: 'https://picsum.photos/200' },
-    { name: '일식', url: 'japansese', image: 'https://picsum.photos/200' },
-    { name: '패스트푸드', url: 'fastfood', image: 'https://picsum.photos/200' }
+    { name: '일식', url: 'japansese' },
+    { name: '패스트푸드', url: 'fastfood' }
   ]
 
   // const storage = getStorage();
@@ -62,54 +63,62 @@ function MainPage() {
   useEffect(()=>{
     const fetchMenu = async ( ) => {
       var infoArr = [];
-      const q = query(collection(db, "CafeteriaData"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const {eng_name, name, location, operating_day, operating_hour, phone} = data;
-        const open = isOpen(operating_day, operating_hour);
-        infoArr.push({eng_name, name, location, operating_day, operating_hour, phone, open});
+      // const q = query(collection(db, "CafeteriaData"));
+      // const querySnapshot = await getDocs(q);
+      // querySnapshot.forEach((doc) => {
+      //   const data = doc.data();
+      //   const {eng_name, name, location, operating_day, operating_time, phone} = data;
+      //   const open = isOpen(operating_day, operating_time);
+      //   infoArr.push({eng_name, name, location, operating_day, operating_time, phone, open});
+      // });
+      axios.get(`http://localhost:8000/check/cafe/`)
+      .then(function (response){
+        const data = response.data;
+        for(var i=0; i<data.length; i++){
+          const { eng_name, kor_name, location, phone, operating_day, operating_time, lat, lng  } = data[i];
+          const open = isOpen(operating_day, operating_time);
+          infoArr.push({eng_name, kor_name, location, operating_day, operating_time, phone, open});
+        }
+        setCafeInfoList(infoArr.sort((a,b) => b.kor_name.localeCompare(a.kor_name)));
       });
-      setCafeInfoList(infoArr.sort((a,b ) => b.name.localeCompare(a.name)));
     }
     fetchMenu();
     // KakaoMapScript();
-    console.log(CafeInfoList);
   },[]);
 
-  const [position, setPosition] = useState({});
-  const markerdata = [
-    {
-      title: "원화관 서문",
-      lat: 36.800076,
-      lng: 127.076565
-    },
-    {
-      title: "인문관 북쪽",
-      lat: 36.799328,
-      lng: 127.075970
-    },
-    {
-      title: "인문관 남쪽",
-      lat: 36.7982834,
-      lng: 127.076014
-    },
-    {
-      title: "학생회관 CU 앞, 지하 1층, 야외",
-      lat: 36.797543,
-      lng: 127.077178
-    },
-    // {
-    //   title: "학생회관 코나킹 야외",
-    //   lat: 36.797661,
-    //   lng: 127.076562
-    // },
-    {
-      title: "보건관 1층",
-      lat: 36.7991554,
-      lng: 127.078345
-    },
-];
+  // const [position, setPosition] = useState({});
+  // const markerdata = [
+  //   {
+  //     title: "원화관 서문",
+  //     lat: 36.800076,
+  //     lng: 127.076565
+  //   },
+  //   {
+  //     title: "인문관 북쪽",
+  //     lat: 36.799328,
+  //     lng: 127.075970
+  //   },
+  //   {
+  //     title: "인문관 남쪽",
+  //     lat: 36.7982834,
+  //     lng: 127.076014
+  //   },
+  //   {
+  //     title: "학생회관 CU 앞, 지하 1층, 야외",
+  //     lat: 36.797543,
+  //     lng: 127.077178
+  //   },
+  //   // {
+  //   //   title: "학생회관 코나킹 야외",
+  //   //   lat: 36.797661,
+  //   //   lng: 127.076562
+  //   // },
+  //   {
+  //     title: "보건관 1층",
+  //     lat: 36.7991554,
+  //     lng: 127.078345
+  //   },
+  // ];
 
 
   return (
@@ -181,7 +190,7 @@ function MainPage() {
         {NewMenuList.map((item) => {
           return (
               <Link to={'/'+item.name} className='type'>
-                <img width="80px" src={item.image} alt={item.name} />
+                <img width="80px" src={'/resource/type/'+item.url+'.png'} alt={item.name} />
                 <span> { `${item.name} (${capitalizeFirstLetter(item.url)})` } </span>
               </Link>
           )
@@ -194,14 +203,14 @@ function MainPage() {
         {CafeInfoList.map((item) => {
         return (
           <Link to={'/cafe/' + item.eng_name} className='cafe-container'>
-            <img width="80px" src={'/resource/cafe/'+item.eng_name+'.png'} alt={item.name} />
+            <img width="80px" src={'/resource/cafe/'+item.eng_name+'.png'} alt={item.kor_name} />
             <div className='cafe-info'>
-              <div className='cafe-title'> {item.name} </div>
-              <span> {item.location} </span>
-              <div className='cafe-operating'>
-                <span> {item.operating_day} {item.operating_hour}</span>
+              <div className='cafe-title'>
+                {item.kor_name}
                 { item.open === true ? <span className='cafe-open'> 영업중 </span> : <span className='cafe-close'> 영업종료 </span> }
               </div>
+              <span> {item.location} </span>
+              <div className='cafe-operating'> {item.operating_day} {item.operating_time} </div>
               <span> Tel. {item.phone} </span>
               
             </div>
