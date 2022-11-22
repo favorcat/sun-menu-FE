@@ -26,20 +26,11 @@ function isOpen(dayStr, timeStr){
     const end_hour = timeStr.substr(6,2); // 종료 시
     const end_min = timeStr.substr(9,2); // 종료 분
 
-    if ((dayStr ==='평일' && time.day >= 1 && time.day <= 5) || (dayStr ==='매일')){
+    if (dayStr ==='평일' && time.day >= 1 && time.day <= 5){
       if (start_hour <= time.hours && time.hours <= end_hour){
-        if (time.hours == start_hour && time.minutes < start_min){
-          console.log("시작시 이고 분 전이다");
-          return false;
-        }
-        else if (time.hours == end_hour && time.minutes > end_min){
-          console.log("종료시 이고 분 후이다");
-          return false;
-        }
-        else {
-          console.log("영업중이다.")
-          return true;
-        }
+        if (time.hours == start_hour && time.minutes < start_min){ return false; }
+        else if (time.hours == end_hour && time.minutes > end_min){ return false; }
+        else { return true; }
       } else { return false; }
   } else { return false; }
 }

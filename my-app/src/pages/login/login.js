@@ -35,16 +35,13 @@ function LoginPage() {
       password: pw,
     })
     .then(function (response) {
-      console.log(response);
       if (response.status === 200){
-        console.log("login success");
         setCookie('token', response.data.token, { path: '/', maxAge: 1000 * 60 * 60 * 12, sameSite: 'strict' });
         window.location.href = '/';
       } else {
         window.alert("로그인 실패, 다시 시도해주세요");
       }
     }).catch(function (error) {
-      console.log(error);
       window.alert("로그인 에러");
     });
   }

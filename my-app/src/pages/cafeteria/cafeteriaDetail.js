@@ -24,8 +24,7 @@ function isOpen(dayStr, timeStr){
     const end_hour = timeStr.substr(6,2); // 종료 시
     const end_min = timeStr.substr(9,2); // 종료 분
 
-    if ((dayStr ==='평일' && time.day >= 1 && time.day <= 5) || (dayStr ==='매일')){
-      console.log("평일");
+    if (dayStr ==='평일' && time.day >= 1 && time.day <= 5){
       if (start_hour <= time.hours && time.hours <= end_hour){
         if (time.hours == start_hour && time.minutes < start_min){ return false; }
         else if (time.hours == end_hour && time.minutes > end_min){ return false; }
@@ -60,7 +59,6 @@ function CafeteriaDetailPage() {
           setCafeInfo({name: kor_name, eng_name: eng_name, lat: lat, lng: lng, location: location, phone: phone, operating_day: operating_day, operating_time: operating_time, notice_contents: notice_contents, notice_registered: notice_registered});
           if (isOpen(operating_day, operating_time) === true){
             setCafeOpen(true);
-            console.log("열림");
           } else { setCafeOpen(false); }
         });
       // });

@@ -33,16 +33,12 @@ function register(usr, email, pw1, pw2){
       })
       .then(function (response) {
         if (response.status === 201){
-          console.log(response);
-          console.log("register success");
-          window.alert("회원가입");
+          window.alert("회원가입 성공");
           window.location.href = '/login';
         } else {
-          console.log(response);
           window.alert("회원가입 실패, 다시 시도해주세요");
         }
       }).catch(function (error) {
-        console.log(error);
         window.alert("회원가입 에러");
       });
     }
