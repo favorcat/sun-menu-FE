@@ -7,7 +7,7 @@ import axios from 'axios';
 // import { db } from '../../firebase';
 // import { query, collection, getDocs } from "firebase/firestore";
 // import KakaoMapScript from '../location/kakaoMap';
-// import { Map, MapMarker,CustomOverlayMap } from "react-kakao-maps-sdk";
+import { Map, MapMarker,CustomOverlayMap } from "react-kakao-maps-sdk";
 
 function capitalizeFirstLetter(str) {
   return str[0].toUpperCase() + str.slice(1);
@@ -45,7 +45,7 @@ function isOpen(dayStr, timeStr){
 }
 
 function MainPage() {
-  const remote = ["메뉴", "교내", "기숙사"];
+  const remote = ["메뉴", "교내", "도시락존"];
   const NewMenuList = [
     { name: '한식', url: 'korean' },
     { name: '분식', url: 'snack' },
@@ -87,93 +87,66 @@ function MainPage() {
   },[]);
 
   // const [position, setPosition] = useState({});
-  // const markerdata = [
-  //   {
-  //     title: "원화관 서문",
-  //     lat: 36.800076,
-  //     lng: 127.076565
-  //   },
-  //   {
-  //     title: "인문관 북쪽",
-  //     lat: 36.799328,
-  //     lng: 127.075970
-  //   },
-  //   {
-  //     title: "인문관 남쪽",
-  //     lat: 36.7982834,
-  //     lng: 127.076014
-  //   },
-  //   {
-  //     title: "학생회관 CU 앞, 지하 1층, 야외",
-  //     lat: 36.797543,
-  //     lng: 127.077178
-  //   },
-  //   // {
-  //   //   title: "학생회관 코나킹 야외",
-  //   //   lat: 36.797661,
-  //   //   lng: 127.076562
-  //   // },
-  //   {
-  //     title: "보건관 1층",
-  //     lat: 36.7991554,
-  //     lng: 127.078345
-  //   },
-  // ];
+  const markerdata = [
+    {
+      title: "원화관 서문",
+      lat: 36.800076,
+      lng: 127.076565
+    },
+    {
+      title: "인문관 북쪽",
+      lat: 36.799328,
+      lng: 127.075970
+    },
+    {
+      title: "인문관 남쪽",
+      lat: 36.7982834,
+      lng: 127.076014
+    },
+    {
+      title: "학생회관 CU 앞, 지하 1층, 야외",
+      lat: 36.797543,
+      lng: 127.077178
+    },
+    // {
+    //   title: "학생회관 코나킹 야외",
+    //   lat: 36.797661,
+    //   lng: 127.076562
+    // },
+    {
+      title: "보건관 1층",
+      lat: 36.7991554,
+      lng: 127.078345
+    },
+  ];
 
 
   return (
   <div className='container'>
-    {/* <Map
-      center={{ lat: 36.798860, lng: 127.07545, }}
-      style={{ width: "100%", height: "350px" }}
-      level={4}
-    >
-    {markerdata.map((position, index) => (
-      <>
-          <MapMarker
-              key={position.title}
-              position={{ lat: position.lat, lng: position.lng }}
-              image={{
-                  src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
-                  size: {
-                      widht: 24,
-                      height: 35
-                  } // 마커이미지의 크기입니다
-              }}
-              title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
-              >
-          </MapMarker>
-          <CustomOverlayMap
-            position={{ lat: position.lat, lng: position.lng }}>
-            <a id="pos">{position.title}</a>
-          </CustomOverlayMap>
-      </>
-    ))}
-    </Map> */}
     {/* <>
         <Map // 지도를 표시할 Container
-          center={{
-            // 지도의 중심좌표
-            lat: 36.798860,
-            lng: 127.07555,
-          }}
-          style={{
-            width: "100%",
-            height: "350px",
-          }}
-          level={4} // 지도의 확대 레벨
-          onClick={(_t, mouseEvent) => setPosition({
-            lat: mouseEvent.latLng.getLat(),
-            lng: mouseEvent.latLng.getLng(),
-          })}
+        center={{
+          // 지도의 중심좌표
+          lat: 36.798860,
+          lng: 127.07555,
+        }}
+        style={{
+          width: "100%",
+          height: "350px",
+        }}
+        level={4} // 지도의 확대 레벨
+        onClick={(_t, mouseEvent) => setPosition({
+          lat: mouseEvent.latLng.getLat(),
+          lng: mouseEvent.latLng.getLng(),
+        })}
         >
-          {position && <MapMarker position={position} />}
+        {position && <MapMarker position={position} />}
         </Map>
         {position && <span>{'클릭한 위치의 위도는 ' + position.lat + ' 이고, 경도는 ' + position.lng + ' 입니다'}</span>}
       </> */}
     {/* <div id='myMap' style={{
-        width: "100%",
-        height: "350px"
+      width: "100%",
+      height: "350px"
     }}></div> */}
     <div className='btn-container'>
       {remote.map((item) => {
@@ -199,7 +172,7 @@ function MainPage() {
     </div>
 
     <div className='list' id="교내">
-    <span className='container-title'>교내 식당</span>
+      <span className='container-title'>교내 식당</span>
         {CafeInfoList.map((item) => {
         return (
           <Link to={'/cafe/' + item.eng_name} className='cafe-container'>
@@ -217,6 +190,37 @@ function MainPage() {
           </Link>
         )
       })}
+    </div>
+    <div className='list' id="도시락존">
+      <span className='container-title'>도시락존</span>
+      <Map
+        center={{ lat: 36.798860, lng: 127.07545, }}
+        style={{width: "100%", height: "300px" }}
+        level={4}
+        zoomable={false}
+      >
+      {markerdata.map((position, index) => (
+        <>
+            <MapMarker
+                key={position.title}
+                position={{ lat: position.lat, lng: position.lng }}
+                image={{
+                    src: "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png", // 마커이미지의 주소입니다
+                    size: {
+                        widht: 24,
+                        height: 35
+                    } // 마커이미지의 크기입니다
+                }}
+                title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+                >
+            </MapMarker>
+            <CustomOverlayMap
+              position={{ lat: position.lat, lng: position.lng }}>
+              <a id="pos">{position.title}</a>
+            </CustomOverlayMap>
+        </>
+      ))}
+      </Map>
     </div>
   </div>
   );
