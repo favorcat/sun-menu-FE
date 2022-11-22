@@ -86,7 +86,7 @@
   font-size: 14px;
   line-height: 19px;
 
-  padding: 6px 14px;
+  padding: 6px 12px;
   text-decoration: none;
   color: black;
   background: lightblue;
@@ -103,6 +103,17 @@
 #type-일식{
   background: #FFDDCC;
 }
+
+#type-월,#type-금{
+  background: #FFCCCC;
+}
+#type-화, #type-목{
+  background: #FFEECC;
+}
+#type-수{
+  background: #FFDDCC;
+}
+
 /* 가게 메뉴 */
 .menu-list{
   display: flex;
