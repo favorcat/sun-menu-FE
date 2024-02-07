@@ -1,3 +1,7 @@
+
+![gif](https://github.com/favorcat/sun-menu-FE/assets/49950126/e8c2078c-771e-4f93-9788-7b39e1af8b26)
+
+##
 ![poster](https://github.com/favorcat/sun-menu-FE/assets/49950126/5f24fd4b-d479-43a9-ab83-104193eafd52)
 
 
